@@ -1,4 +1,3 @@
-
 #include "micro_rosso.h"
 
 #include "src/ticker.h"
