@@ -1,5 +1,3 @@
-#define READS_INTERVAL_MS 2000
-
 #include "micro_rosso.h"
 
 #include "logger.h"
