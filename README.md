@@ -317,7 +317,7 @@ $ ros2 topic echo /rosout --field msg
 
 ## Authors and acknowledgment
 
-jvisca@fing.edu.uy - Grupo MINA, Facultad de Ingeniería - Udelar, 2024
+jvisca@fing.edu.uy - [Grupo MINA](https://www.fing.edu.uy/inco/grupos/mina/), Facultad de Ingeniería - Udelar, 2024
 
 ## License
 
