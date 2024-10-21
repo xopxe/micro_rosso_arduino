@@ -8,15 +8,6 @@ ImuBNO08x imu;
 #include "src/oruga/mobility_tracked.h"
 MobilityTracked mobility;
 
-/*
-#include "src/robotito/robotito_omni.h"
-RobotitoOmni mobility;
-#include "src/robotito/robotito_apds9960.h"
-Apds9960 apds9960;
-#include "src/robotito/robotito_vl53ring.h"
-Vl53Ring laser;
-*/
-
 #include "src/env_bme680.h"
 EnvBME680 env_sensor;
 //#include "env_dht22.h"
@@ -27,6 +18,9 @@ Ticker ticker;
 
 #include "src/sync_time.h"
 SyncTime sync_time;
+
+#include "src/ros_status.h"
+RosStatus ros_status;
 
 void setup() {
 
@@ -51,14 +45,7 @@ void setup() {
   if (!mobility.setup()) {
     D_println("FAIL mobility.setup()");
   };
-  /*
-  if (!apds9960.setup()) {
-    D_println("FAIL apds9960.setup()");
-  };
-  if (!laser.setup()) {
-    D_println("FAIL laser.setup()");
-  };
-  */
+
 
   if (!ticker.setup()) {
     D_println("FAIL ticker.setup()");
@@ -68,9 +55,13 @@ void setup() {
     D_println("FAIL sync_time.setup()");
   };
 
+  if (!ros_status.setup()) {
+    D_println("FAIL ros_status.setup()");
+  };
+
   D_println("Boot completed.");
 }
 
 void loop() {
-  micro_rosso::loop();
+  micro_rosos::loop();
 }
