@@ -1,5 +1,18 @@
 #include "micro_rosso.h"
 
+#include "src/imu_bno08x.h"
+ImuBNO08x imu;
+//#include "imu_mpu6050.h"
+//ImuMPU6050 imu;
+
+#include "src/oruga/mobility_tracked.h"
+MobilityTracked mobility;
+
+#include "src/env_bme680.h"
+EnvBME680 env_sensor;
+//#include "env_dht22.h"
+//EnvDHT22 env_sensor;
+
 #include "src/ticker.h"
 Ticker ticker;
 
@@ -20,6 +33,19 @@ void setup() {
   if (!micro_rosso::setup()) {
     D_println("FAIL micro_rosso.setup()");
   }
+
+  if (!imu.setup()) {
+    D_println("FAIL imu.setup()");
+  };
+
+  if (!env_sensor.setup()) {
+    D_println("FAIL env_sensor.setup()");
+  };
+
+  if (!mobility.setup()) {
+    D_println("FAIL mobility.setup()");
+  };
+
 
   if (!ticker.setup()) {
     D_println("FAIL ticker.setup()");
