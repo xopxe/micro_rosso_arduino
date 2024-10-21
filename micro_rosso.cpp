@@ -170,9 +170,7 @@ bool micro_rosso::setup() {
     D_println("FAIL logger.setup()");
   };
 
-  if (!Wire.begin(I2C_SDA, I2C_SCL)) {
-    D_println("FAIL Wire.begin()");
-  }
+  Wire.begin(I2C_SDA, I2C_SCL);
 
   micro_rosso::timer_control.timeout_ns = RCL_MS_TO_NS(TIMER_CONTROL_MS);
   micro_rosso::timer_control.timer_handler = timer_handler_control;

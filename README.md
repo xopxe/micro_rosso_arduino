@@ -27,7 +27,7 @@ These are libraries needed by the base system, plus libraries required by the di
 
 **Base libraries**
 
-* ros2arduino by ROBOTIS: ROS2 API.
+* [micro_ros_arduino](https://github.com/micro-ROS/micro_ros_arduino): ROS2 API. Must be installed into the sketch from the zip file downloaded from the [releases](https://github.com/micro-ROS/micro_ros_arduino/releases) page. Select the one corresponding to you ROS2 version (e.g. humble, iron)
 
 * Time by Michael Margolis. It's not strictly necessary and can be disabled by commenting the `#define USE_SET_TIME` in micro_rosso_config.h.
 

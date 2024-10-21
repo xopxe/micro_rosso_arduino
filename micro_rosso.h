@@ -18,7 +18,7 @@ enum QosMode {
 };
 
 enum ros_states {
-  WAITING_AGENT,      // the client is watintg the agent
+  WAITING_AGENT,      // the client is waiting for an agent
   AGENT_AVAILABLE,    // agent detected, connecting
   AGENT_CONNECTED,    // client connected to agent
   AGENT_DISCONNECTED  // connection to agent broken, disconnecting
