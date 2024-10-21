@@ -1,4 +1,4 @@
-# micro ros os
+# micro rosso
 
 This is a modular system for Arduino micro-ros. It allows you to write modules that can interact with ROS2 sending and receiving topics, publishing services, and so on.
 
@@ -10,7 +10,7 @@ Install [Arduino micro-ros](https://www.hackster.io/514301/micro-ros-on-esp32-us
 
 Another handy tutorial [here](https://medium.com/@kabilankb2003/seamless-communication-between-jetson-nano-and-esp32-with-microros-bd82c1cc7c53)
 
-## Board support for Arduino
+**Board support for Arduino**
 
 This project is developed on ESP32 boards but can easily be adapted to other Arduino-compatible boards. 
 
@@ -21,49 +21,61 @@ Note: when using ESP32 boards you might have to stay at v2.0.17
 Note: In Arduino micro-ros, the maximum number of resources (services, publishers, subscribers, timers, etc.) is configured in the `colcon.meta` file.
 
 
-## Arduino libraries
+**Arduino libraries**
 
-These are libraries needed by the base system, plus libraries required by the different modules.
-
-**Base libraries**
+These are libraries needed by the base system.
 
 * [micro_ros_arduino](https://github.com/micro-ROS/micro_ros_arduino): ROS2 API. Must be installed into the sketch from the zip file downloaded from the [releases](https://github.com/micro-ROS/micro_ros_arduino/releases) page. Select the one corresponding to you ROS2 version (e.g. humble, iron)
 
-* Time by Michael Margolis. It's not strictly necessary and can be disabled by commenting the `#define USE_SET_TIME` in micro_rosso_config.h.
-
-**Modules' dependencies**
-
-Different modules have their own dependencies. If you do not want to build a module, comment the corresponding `#define` in `build_modules.h`.
-
-* ESP32Encoder by Kevin Harrington. Used by the `mobility_tracked` and `robotito_apds9960` modules. This library is ESP32-specific as it uses ESP32 hardware counters.
-
-* Adafruit MPU6050 by Adafruit. Used by the `env_mpu6050` module.
-
-* Adafruit BME680 by Adafruit. Used by the `env_bme680` module.
-
-* Cdrv8833 by Steffano Ledda. Used by the `robotito_omni`module.
-
-* Arduino\_APDS9960 by Arduino. Used by the `robotito_apds9960` module.
-
-* Adafruit VL53L0X by Adafruit. Used by the `robotito_vl53ring` module.
 
 ## Files
 
 * `micro_rosso.ino`: Main sketch, modify to include and setup modules.
 
-* `micro_rosso.h`, `micro_rosso.cpp`: library used to create modules.
+* `micro_rosso.h`, `micro_rosso.cpp`: library used to create and run modules.
 
 * `micro_rosso_config.h`: configuration for `micro_rosso`. There you can configuire the ros2 node name, i2c pins, debugging console output, micro-ros transport, etc.
 
 * `logger.h`, `logger.cpp`: utility module pre-loaded by `micro_rosso` and used to send `/rosout` topics.
 
-* everything else in the `src/` folder: modules and their dependencies. See Section 'How to use modules'.
+* everything else in the `src/` folder: modules and their dependencies.
 
-* `src/build_modules.h`: used to select the modules to be built.
 
-## micro_rosso configuration
 
-You can configure micro_rosso editing `micro\_rosos\_config.h` before building your project. 
+## Configuring micro_rosso 
+
+You can configure micro_rosso editing `micro_rosso_config.h` before building your project.
+
+
+## Provided Modules
+
+Different modules have their own dependencies. If you do not want to build a module, comment the corresponding `#define` in `src/build_modules.h`.
+
+* `env_bme680` environmental sensor. Depends on the Adafruit BME680 library by Adafruit.
+
+* `env_dht22` environmental sensor.
+
+* `imu_bno08x` IMU. Depends on the SparkFun BNO08X Cortex Based IMU library by SparkFun Electronics
+
+* `imu_mpu6050`IMU. Depends on the Adafruit MPU6050 library by Adafruit.
+
+* `odom_helper` odometry library. Simple dead-reconing tracker and ROS2 odometry topic publisher.
+
+* `ros_status` module, allows to react to changes in the connection status (e.g., power on a LED when an agent is connected).
+
+* `sync_time` service. Sinchronize the microcontroller's clock to ROS2. Depends on the Time library by Michael Margolis. It's not strictly necessary and can be disabled by commenting the `#define USE_SET_TIME` in `micro_rosso_config.h`.
+
+* `ticker` publisher. Cerates a 1Hz timer.
+
+* `robotito/robotito_omni` module for the/robotito/ platform. Omnidirectional platform using two dual H-bridges. Depends on the Cdrv8833 library by Steffano Ledda, and the ESP32Encoder library by Kevin Harrington.
+
+* `robotito/robotito_apds9960` module for the/robotito/ platform. Supports the APDS9960 color/proximity/gesture sensor. Depends on the Arduino\_APDS9960 library by Arduino.
+
+* `robotito/robotito_vl53ring` module for the/robotito/ platform. Produces a laser\_scan fro the ring of VL53L0X TOF distance sensors. Depends on the Adafruit VL53L0X library by Adafruit.
+
+* `oruga/mobility_tracked` module for a tracked robot usng a Sabertooth motor controller. Depends on the ESP32Encoder library by Kevin Harrington. 
+
+
 
 ## How to use modules
 
@@ -90,7 +102,7 @@ Usually, modules' setup method return `false` if something fails. `D_print` and 
 
 ## How to write a module
 
-A micro\_rosos module is a mostly static object that provides a setup method where it registers ros2 resources using `micro_rosso.h`. It then uses ros2arduino and other modules to implement its own functionality.
+A micro\_rosso module is a mostly static object that provides a setup method where it registers ros2 resources using `micro_rosso.h`. It then uses ros2arduino and other modules to implement its own functionality.
 
 Things a module can do:
 
@@ -187,7 +199,7 @@ bool setup() {
 }
 ```
 
-It is possible to create new timers. For an example, see the  `ticker` module, which creates and provides a 1Hz timer. First, instantiate a timer descriptor. You can do it in the class definition if you want to make it useable by other modules.
+It is possible to create new timers. For an example, see the `ticker` module, which creates and provides a 1Hz timer.For this, first instantiate a timer descriptor. You can do it in the class definition if you want to make it useable by other modules.
 
 ```
 class MyModule {
