@@ -2,6 +2,9 @@
 
 This is a modular system for Arduino micro-ros. It allows you to write modules that can interact with ROS2 sending and receiving topics, publishing services, and so on.
 
+| :exclamation: Development moved over to [platformio](https://github.com/xopxe/micro_rosso_platformio). If you want pure Arduino, you are better served backporting from there.   |
+|----------------------------------------------|
+
 ## Install
 
 **micro-ros**
